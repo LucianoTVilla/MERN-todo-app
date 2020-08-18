@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getTodos } from '../api';
 
 export const TodoList = () => {
-const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
 
-useEffect(() => {
-  setItems([
-    {text: "foo", id: 0},
-    {text: "feor", id: 1},
-    {text: "foweqweo", id: 2},
-    {text: "fwewqeoo", id: 3},
-  ])
-}, [])
+  useEffect(() => {
+    const fetchItems = async () => {
+      const todos = await getTodos();
+      setItems(todos);
+    }
+    fetchItems()
+  }, []);
+
   return (
     <div className="container">
       <div className="mt-3">
@@ -31,7 +32,7 @@ useEffect(() => {
                     {todo.text}
                   </td>
                   <td>
-                    <Link to={`/edit/${todo.id}`}>Edit</Link>
+                    <Link to={`/edit/${todo._id}`}>Edit</Link>
                   </td>
                 </tr>
               ))
