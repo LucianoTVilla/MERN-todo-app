@@ -24,7 +24,7 @@ export const EditTodo = () => {
   return todo ? (
     <div className="container">
       <div className="mt-3">
-        <h3>Edit Todo Item</h3>
+        <h3>Editing Task</h3>
         <TodoForm todo={todo} onSubmit={onSubmit}/>
       </div>
     </div>

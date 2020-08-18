@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const id = req.params.id;
   Todo.findById(id, (err, todo) => {
     if (!todo) {
@@ -51,5 +51,23 @@ router.post('/:id', (req, res) => {
     }
   })
 });
+
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  Todo.findById(id, (err, todo) => {
+    if (!todo) {
+      res.status(404).send('Todo not found');
+    } else {
+      Todo.remove({
+        _id: req.params.id
+      }, function(err, task) {
+        if (err)
+          res.send(err);
+        res.json({ message: 'Task successfully deleted' });
+      });
+    }
+  })
+})
 
 module.exports = router;
